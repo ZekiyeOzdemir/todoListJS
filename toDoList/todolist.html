@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>To Do List</title>
+    <style>
+        .ul {
+            list-style-type: none;
+            width: 150px;
+            margin: 0;
+        }
+
+        ul li {
+            background: rgb(243, 240, 240);
+            display: block;
+            color: #000;
+            padding: 8px 16px;
+            text-decoration: none;
+            padding-top: 12px;
+            padding-bottom: 12px;
+            margin-right: 50px;
+            border-radius: 5px;
+
+
+        }
+
+        li:nth-child(odd) {
+            background: rgb(218, 212, 212);
+        }
+
+        li:hover {
+            background-color: #555;
+            color: white;
+        }
+
+        * {
+            font-family: 'Times New Roman', Times, serif;
+            box-sizing: border-box;
+        }
+
+        .h1 {
+            text-align: center;
+            margin: 5px;
+            margin-top: 10px;
+        }
+
+        .container {
+            text-align: center;
+            font-size: 18px;
+            background-color: rgb(227, 241, 245);
+            margin-left: 100px;
+            margin-right: 100px;
+            margin-top: 50px;
+        }
+
+        .container:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .btn {
+            background-color: rgb(175, 173, 173);
+            border-radius: 7px;
+            transition-duration: 0.4s;
+            border: none;
+            text-decoration: none;
+            font-size: 15px;
+            display: inline-block;
+            padding: 6px 30px;
+            width: 10%;
+        }
+
+        button:hover {
+            background-color: rgb(155, 152, 152);
+        }
+
+        input {
+            width: 30%;
+            padding: 5px 12px;
+            box-sizing: border-box;
+            border-radius: 5px;
+            border: 2px solid gray;
+        }
+
+        input:focus {
+            border: 2px solid #555;
+        }
+
+        .close {
+            border-radius: 6px;
+            border: none;
+            background-color: rgb(175, 173, 173);
+            padding-left: 2px;
+            text-decoration: none;
+            transition-duration: 0.4s;
+            position: absolute;
+            right: 170px;
+        }
+
+        .close:hover {
+            background-color: rgb(155, 152, 152);
+            color: white;
+        }
+        
+        ul li.checked {
+            background: #888;
+            color: #fff;
+            text-decoration:line-through;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" id="myDiv">
+        <h1 style="color:rgb(3, 17, 44);">To Do List</h1>
+        <input type="text" id="inputId" value="Title..." name="inputName" onFocus="enterBox()" onblur="exitBox()">
+        <button onclick="addToList()" class="btn">Add</button>
+        <ul name="myUL" id="ulId">
+            <li>Water the plants</li>
+            <li>Meeting at 9:00 am</li>
+            <li>Birtday cake</li>
+            <li>Organize the books</li>
+            <li>Pay the bills</li>
+            <li>Take a walk</li>
+
+        </ul>
+    </div>
+
+    <script>
+        function enterBox() {
+            if (document.getElementById("inputId").value == "Title...") {
+                document.getElementById("inputId").value = "";
+            }
+        }
+
+        function exitBox() {
+            if (document.getElementById("inputId").value == "") {
+                document.getElementById("inputId").value = "Title...";
+            }
+        }
+
+        var nodeList = document.getElementsByTagName("LI");
+        for (var i = 0; i < nodeList.length; i++) {
+            // 1. Create element
+            var button = document.createElement("button");
+            button.innerHTML = "Cancel";
+            button.className = "close";
+            // 2. Append somewhere
+            var txt = document.getElementsByTagName("LI")[i];
+            txt.appendChild(button);
+
+            // 3. Add event handler
+            button.addEventListener("click", function () {
+                var div = this.parentElement;
+                div.style.display = "none";
+            });
+
+        }
+
+        // Put a line to the text when user clikcs to list element
+        var list = document.querySelector('ul');
+        list.addEventListener('click', function (ev) {
+            if (ev.target.tagName === 'LI') {
+                ev.target.classList.toggle('checked');
+            }
+        }, false);
+
+        function addToList(){
+            // Creating new li element
+            var li = document.createElement("LI");
+            // Assigning input value 
+            var inputValue = document.getElementById("inputId").value;
+            // Creating a text value
+            var t = document.createTextNode(inputValue);
+            // Adding text (t) to the li element
+            li.appendChild(t);
+
+            // Checking if input value is blank
+            if(inputValue == "Title..."){
+                alert("Please write something...");
+            }
+            else{
+                document.getElementById("ulId").appendChild(li);
+            }
+            document.getElementById("inputId").value = "Title...";
+            
+            for (var i = 0; i < nodeList.length; i++) {
+            // 1. Create element
+            var button = document.createElement("button");
+            button.innerHTML = "Cancel";
+            button.className = "close";
+            // 2. Append somewhere
+            var txt = document.getElementsByTagName("LI")[i];
+            txt.appendChild(button);
+
+            // 3. Add event handler
+            button.addEventListener("click", function () {
+                var div = this.parentElement;
+                div.style.display = "none";
+            });
+
+        }
+            
+        }
+
+
+
+
+
+    </script>
+</body>
+
+</html>
